@@ -1,4 +1,4 @@
-// Урок 8. Как не нужно писать код. Часть 2
+﻿// Урок 8. Как не нужно писать код. Часть 2
 // Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
 // Например, задан массив:
 // 1 4 7 2
@@ -9,7 +9,79 @@
 // 2 3 5 9
 // 2 4 4 8
 
-int [,] generateRandomArray(int z, int x, int minNumber, int maxNumber) // создание функции для создания двухмерного массива
+// int [,] generateRandomArray(int z, int x, int minNumber, int maxNumber) // создание функции для создания двухмерного массива
+// {
+//     int [,] rnArray = new int [z, x];
+//     for (int i = 0; i < z; i++)
+//     {
+//         for (int j = 0; j < x; j++)
+//         {
+//             rnArray[i, j] = new Random().Next(minNumber, maxNumber+1); //заполнение массива случайными числами
+//         }
+//     }
+//     return rnArray;
+// }
+
+// void printArray(int [,] prArray) // создание метода для вывода массива на консоль
+// {
+//     for (int i = 0; i < prArray.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < prArray.GetLength(1); j++)
+//         {
+//             Console.Write($"{prArray[i, j]} ");
+//         }
+//     Console.WriteLine(" ");
+//     }
+// }
+
+// void sortingArray(int [,] soArray) // создание метода для сортировки массива
+// {
+//     for (int i = 0; i < soArray.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < soArray.GetLength(1); j++)
+//         {
+//             for (int t = j+1; t < soArray.GetLength(1); t++)
+//             {
+//                 if (soArray[i, t] > soArray[i, j])
+//                 {
+//                 int temp = soArray[i, j];
+//                 soArray[i, j] = soArray[i, t];
+//                 soArray[i, t] = temp;   
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// Console.Clear();
+// Console.Write("Введите количество строк массива: ");
+// int rows=Convert.ToInt32(Console.ReadLine());
+
+// Console.Write("Введите количество столбцов массива: ");
+// int columns=Convert.ToInt32(Console.ReadLine());
+
+// Console.Write("Введите минимальное число массива: ");
+// int min=Convert.ToInt32(Console.ReadLine());
+
+// Console.Write("Введите максимальное число массива: ");
+// int max=Convert.ToInt32(Console.ReadLine());
+
+// int [,] array = generateRandomArray (rows, columns, min, max);
+// printArray(array);
+// Console.WriteLine("--------------------");
+// sortingArray(array);
+// printArray(array);
+
+
+// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// 5 2 6 7
+// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+
+int [,] generateRandomArray1(int z, int x, int minNumber, int maxNumber) // создание функции для создания двухмерного массива
 {
     int [,] rnArray = new int [z, x];
     for (int i = 0; i < z; i++)
@@ -34,55 +106,49 @@ void printArray1(int [,] prArray) // создание метода для выв
     }
 }
 
-void sortingArray(int [,] soArray) // создание метода для сортировки массива
+int getRowArray(int [,] getArray) // создание метода для сортировки массива
 {
-    for (int i = 0; i < soArray.GetLength(0); i++)
+ int row = 0;
+ int minsum = 0;
+ for (int i = 0; i < getArray.GetLength(1); i++)
+ {
+    minsum = minsum + getArray[0,i];
+ }
+ for (int i = 1; i < getArray.GetLength(0); i++)
+ {
+    int sum = 0;
+    for (int j = 0; j < getArray.GetLength(1); j++)
     {
-        for (int j = 0; j < soArray.GetLength(1); j++)
-        {
-            for (int t = j+1; t < soArray.GetLength(1); t++)
-            {
-                if (soArray[i, t] > soArray[i, j])
-                {
-                int temp = soArray[i, j];
-                soArray[i, j] = soArray[i, t];
-                soArray[i, t] = temp;   
-                }
-            }
-        }
+        sum = sum + getArray[i,j];
+    }    
+    if (minsum>sum)
+    {
+        minsum = sum;
+        row = i+1;
     }
+ }
+ return row;
 }
 
 Console.Clear();
 Console.Write("Введите количество строк массива: ");
-int rows=Convert.ToInt32(Console.ReadLine());
+int rows1=Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Введите количество столбцов массива: ");
-int columns=Convert.ToInt32(Console.ReadLine());
+int columns1=Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Введите минимальное число массива: ");
-int min=Convert.ToInt32(Console.ReadLine());
+int min1=Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Введите максимальное число массива: ");
-int max=Convert.ToInt32(Console.ReadLine());
+int max1=Convert.ToInt32(Console.ReadLine());
 
-int [,] array = generateRandomArray (rows, columns, min, max);
-printArray(array);
-Console.WriteLine("--------------------");
-sortingArray(array);
-printArray(array);
-
-
-// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
-// 5 2 6 7
+int [,] array1 = generateRandomArray1 (rows1, columns1, min1, max1);
+printArray1(array1);
+Console.Write("Cтрока с наименьшей суммой элементов -> ");
+Console.Write (getRowArray(array1));
 
 
-
-// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 // Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
 // Например, заданы 2 массива:
 // 1 4 7 2              1 5 8 5
