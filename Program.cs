@@ -9,6 +9,68 @@
 // 2 3 5 9
 // 2 4 4 8
 
+int [,] generateRandomArray(int z, int x, int minNumber, int maxNumber) // создание функции для создания двухмерного массива
+{
+    int [,] rnArray = new int [z, x];
+    for (int i = 0; i < z; i++)
+    {
+        for (int j = 0; j < x; j++)
+        {
+            rnArray[i, j] = new Random().Next(minNumber, maxNumber+1); //заполнение массива случайными числами
+        }
+    }
+    return rnArray;
+}
+
+void printArray(int [,] prArray) // создание метода для вывода массива на консоль
+{
+    for (int i = 0; i < prArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < prArray.GetLength(1); j++)
+        {
+            Console.Write($"{prArray[i, j]} ");
+        }
+    Console.WriteLine(" ");
+    }
+}
+
+void sortingArray(int [,] soArray) // создание метода для сортировки массива
+{
+    for (int i = 0; i < soArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < soArray.GetLength(1); j++)
+        {
+            for (int t = j+1; t < soArray.GetLength(1); t++)
+            {
+                if (soArray[i, t] > soArray[i, j])
+                {
+                int temp = soArray[i, j];
+                soArray[i, j] = soArray[i, t];
+                soArray[i, t] = temp;   
+                }
+            }
+        }
+    }
+}
+
+Console.Clear();
+Console.Write("Введите количество строк массива: ");
+int rows=Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Введите количество столбцов массива: ");
+int columns=Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Введите минимальное число массива: ");
+int min=Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Введите максимальное число массива: ");
+int max=Convert.ToInt32(Console.ReadLine());
+
+int [,] array = generateRandomArray (rows, columns, min, max);
+printArray(array);
+Console.WriteLine("--------------------");
+sortingArray(array);
+printArray(array);
 
 
 // Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
