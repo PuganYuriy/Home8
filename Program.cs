@@ -252,66 +252,66 @@
 // 45(1,0,0) 53(1,0,1)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-int [,,] generateRandomArray3(int z, int x, int c, int minNumber, int maxNumber) // создание функции для создания трехмерного массива с неповторяющими двухзначными числами
-{
-    int [,,] rnArray = new int [z, x, c];
-    for (int i = 0; i < z; i++)
-    {
-        for (int j = 0; j < x; j++)
-        {
-            for (int k = 0; k < c; k++)
-            {
-                int number = new Random().Next(minNumber, maxNumber+1); 
-                if (findElement(rnArray, number)) continue;
-                rnArray[i, j, k] = number;                        
+// int [,,] generateRandomArray3(int z, int x, int c, int minNumber, int maxNumber) // создание функции для создания трехмерного массива с неповторяющими двухзначными числами
+// {
+//     int [,,] rnArray = new int [z, x, c];
+//     for (int i = 0; i < z; i++)
+//     {
+//         for (int j = 0; j < x; j++)
+//         {
+//             for (int k = 0; k < c; k++)
+//             {
+//                 int number = new Random().Next(minNumber, maxNumber+1); 
+//                 if (findElement(rnArray, number)) continue;
+//                 rnArray[i, j, k] = number;                        
 
-            }
-        }
-    }
-    return rnArray;
-}
+//             }
+//         }
+//     }
+//     return rnArray;
+// }
 
-bool findElement (int [,,] array, int element)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(2); k++)
-            {
-                if (array[i,j,k] == element) return true;
-            }
-        }
-    }
-    return false;
-}
+// bool findElement (int [,,] array, int element)
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             for (int k = 0; k < array.GetLength(2); k++)
+//             {
+//                 if (array[i,j,k] == element) return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
 
-void printArray2(int [,,] prArray) // создание метода для вывода массива на консоль
-{
-    for (int i = 0; i < prArray.GetLength(0); i++)
-    {
-        for (int j = 0; j < prArray.GetLength(1); j++)
-        {
-            for (int k = 0; k < prArray.GetLength(2); k++)
-            {
-                Console.Write($" {prArray[i, j, k]} ({i}, {j}, {k})");
-            }
-            Console.WriteLine(" ");
-        }
-    }
-}
+// void printArray2(int [,,] prArray) // создание метода для вывода массива на консоль
+// {
+//     for (int i = 0; i < prArray.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < prArray.GetLength(1); j++)
+//         {
+//             for (int k = 0; k < prArray.GetLength(2); k++)
+//             {
+//                 Console.Write($" {prArray[i, j, k]} ({i}, {j}, {k})");
+//             }
+//             Console.WriteLine(" ");
+//         }
+//     }
+// }
 
-Console.Clear();
-Console.Write("Введите количество строк массива: ");
-int rows4=Convert.ToInt32(Console.ReadLine());
-Console.Write("Введите количество столбцов массива: ");
-int columns4=Convert.ToInt32(Console.ReadLine());
-Console.Write("Введите количество высота массива: ");
-int height4=Convert.ToInt32(Console.ReadLine());
+// Console.Clear();
+// Console.Write("Введите количество строк массива: ");
+// int rows4=Convert.ToInt32(Console.ReadLine());
+// Console.Write("Введите количество столбцов массива: ");
+// int columns4=Convert.ToInt32(Console.ReadLine());
+// Console.Write("Введите количество высота массива: ");
+// int height4=Convert.ToInt32(Console.ReadLine());
 
 
-int [,,] array4 = generateRandomArray3 (rows4, columns4, height4, 10, 99);
-printArray2(array4);
+// int [,,] array4 = generateRandomArray3 (rows4, columns4, height4, 10, 99);
+// printArray2(array4);
 
 
 // Задача 62. Заполните спирально массив 4 на 4.
@@ -320,3 +320,50 @@ printArray2(array4);
 // 12 13 14 5
 // 11 16 15 6
 // 10 9 8 7
+
+int [,] spiralArray(int z) // создание функции для создания двухмерного массива
+{
+    int [,] rnArray = new int [z, z];
+    int m = 1;
+    rnArray[(z / 2),(z / 2)] = (z * z);      // если N - нечетное то находим центр матрицы и заполняем его числом N * N
+    
+    
+    for(int i = 0; i < (z / 2); i++){
+        for(int j = i; j < (z - i); j++){   // (n - i) - чтоб с каждым разом сторона становилась меньше
+            rnArray[i,j] = m;
+            m++;
+        }
+        for(int j = 1; j < (z - i - i); j++){   // начинаем с первого эл. так-как нулевой уже записан
+            rnArray[(j + i),(z - i) - 1] = m;    // (n - i) - 1 - отнимаем 1 чтоб не выходило за рамки массива
+            m++;
+        }
+        for(int j = (z - 2) - i; j >= i; j--){  // (n - 2) - i - отнимаем 1 чтоб не выходило за рамки массива и еще одну 1 
+            rnArray[(z - i) - 1, (j)] = m;            
+            m++;
+        }
+        for(int j = ((z - i) - 2); j > i; j--){
+            rnArray[j,i] = m;
+            m++;
+        }
+    }
+    return rnArray;
+}
+
+void printArray(int [,] prArray) // создание метода для вывода массива на консоль
+{
+    for (int i = 0; i < prArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < prArray.GetLength(1); j++)
+        {
+            Console.Write($"{prArray[i, j]} ");
+        }
+    Console.WriteLine(" ");
+    }
+}
+
+Console.Clear();
+Console.Write("Введите размер массива: ");
+int size = Convert.ToInt32(Console.ReadLine());
+
+int [,] array6 = spiralArray (size);
+printArray(array6);
